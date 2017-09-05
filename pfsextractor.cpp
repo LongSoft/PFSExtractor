@@ -12,10 +12,11 @@ WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 */
 
 #define  _CRT_SECURE_NO_WARNINGS
+#include <stdint.h>
+#include <stdio.h>
+#include <string.h>
 #include <iostream>
 #include <fstream>
-#include <cstdint>
-#include <cstdio>
 #include <vector>
 #include <algorithm>
 
@@ -41,6 +42,7 @@ bool changeDirectory(const char* dir) {
 }
 #else
 #include <unistd.h>
+#include <sys/stat.h>
 bool isExistOnFs(const char* path) {
     struct stat buf;
     return (stat(path, &buf) == 0);
@@ -365,7 +367,7 @@ int main(int argc, char* argv[])
     // Create directory name
     char directory[240] = { 0 };
     strcat(directory, argv[1]);
-    strcat(directory, ".extracted/");
+    strcat(directory, ".extracted");
 
     // Create directory for output files
     if (!makeDirectory(directory)) {
